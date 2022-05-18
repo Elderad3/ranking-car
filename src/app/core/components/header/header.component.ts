@@ -9,7 +9,13 @@ export class HeaderComponent implements OnInit {
 
   constructor() { }
 
+  mobileMenuIsOpen: boolean = false
+
   ngOnInit() {
+  }
+
+  openCloseMenu(){
+    this.mobileMenuIsOpen =  !this.mobileMenuIsOpen
   }
 
 }

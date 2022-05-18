@@ -16,11 +16,8 @@ export class DoughnutChartComponent implements OnChanges {
   constructor() { }
 
   ngOnChanges(): void {
-    console.log("Gráfico Iniciado")
-    console.log(this.data)
     if(this.myChart){
       this.myChart.destroy()
-      console.log("Gráfico antigo destruído")
     }
     this.myChart = new Chart("doughnutChart", {
       type: 'doughnut',
@@ -54,7 +51,6 @@ export class DoughnutChartComponent implements OnChanges {
           }
       }
   });
-  console.log(this.myChart)
   }
 
 }

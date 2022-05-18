@@ -1,6 +1,3 @@
-
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './components/header/header.component';
@@ -11,15 +8,10 @@ import { RouterModule } from '@angular/router';
 @NgModule({
   declarations: [HeaderComponent, FooterComponent],
   imports: [
-   // CommonModule,
-   // RouterModule,
-   // HttpClientModule,
-   // FormsModule
+    CommonModule,
+    RouterModule,
   ],
   exports: [
-    //FormsModule,
-    //RouterModule,
-    //HttpClientModule,
     HeaderComponent,
     FooterComponent]
 })
