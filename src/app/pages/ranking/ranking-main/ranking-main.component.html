@@ -24,39 +24,36 @@
             <h4 class="mt-2 text-2xl font-bold text-gray-700">10 Primeiros {{ranking[0].mes}}/{{ranking[0].ano}}</h4>
         </div>
         <div class="grid mt-2 gap-2 md:grid-cols-2 lg:grid-cols-5">
-            <a *ngFor="let item of dezPrimeiros">
+            <a *ngFor="let item of dezPrimeiros" [routerLink]="['/carro', item.id_carro]">
                 <div class="p-4 bg-white rounded-md shadow-md">
                     <div>
                         <span class="text-sm text-gray-500">{{item.posicao}} - {{item.modelo}}</span>
                     </div>
                     <div class="flex justify-start items-center">
-                        <img src="assets/logos/{{item.marca}}.png" alt="logo" class="h-7 w-7 mr-2" />
-                        <h1 class="text-base font-semibold text-gray-900">{{item.quantidade}}</h1>
+                        <img src="assets/logos/{{item.marca}}.png" alt="Logomarca" class="h-7 w-7 mr-2" />
+                        <h1 class="text-base font-semibold text-gray-900">{{item.quantidade | number}}</h1>
                     </div>
                 </div>
             </a>
         </div>
         <h4 class="mt-2 text-2xl font-bold text-gray-700">Ranking Geral {{ranking[0].mes}}/{{ranking[0].ano}}</h4>
-        <div class="bg-white md:p-2 lg:p-4 mt-2 rounded-md shadow-md">
-            <p class="text-xs text-gray-400">Fonte: Fenabrave</p>
-            <app-bar-chart [data]="dataGraficoRanking" [titulo]="'Carros'"></app-bar-chart>
+        <div class="bg-white p-4 mt-2 rounded-md shadow-md">
+            <app-bar-chart [data]="dataGraficoRanking" [titulo]="'Quantidade'"></app-bar-chart>
         </div>
-        <div class="bg-white p-2 mt-2 rounded-md shadow-md">
             <div class="grid gap-2 mt-4 md:grid-cols-3 lg:grid-cols-5">
-                <a *ngFor="let item of ranking">
-                    <div class="p-2 bg-white text-center rounded shadow">
+                <a *ngFor="let item of ranking" [routerLink]="['/carro', item.id_carro]">
+                    <div class="p-2 bg-white text-center rounded-md shadow-md">
                         <div class='flex justify-start items-center'>
-                            <img src="assets/logos/{{item.marca}}.png" class="h-6 w-6 mr-2" />
+                            <img src="assets/logos/{{item.marca}}.png" alt="Logomarca" class="h-6 w-6 mr-2" />
                             <span class="text-sm font-bold text-gray-400">{{item.modelo}}</span>
                         </div>
                         <div class='flex justify-start items-center'>
                             <span class="text-sm font-bold text-gray-400 mr-2">{{item.posicao}}°: </span>
-                            <span class="text-sm font-bold text-black mr-2">{{item.quantidade}}</span>
+                            <span class="text-sm font-bold text-black mr-2">{{item.quantidade | number}}</span>
                         </div>
                     </div>
                 </a>
             </div>
-        </div>
         <div class="mt-4">
             <h4 class="mt-2 text-2xl font-bold text-gray-700">Ranking Por Marca {{ranking[0].mes}}/{{ranking[0].ano}}
             </h4>
@@ -69,11 +66,11 @@
                     </div>
                     <div class="flex justify-start items-center">
                         <img src="assets/logos/{{item.marca}}.png" alt="Logomarca" class="h-7 w-7 mr-2">
-                        <h1 class="text-xs font-bold">{{item.quantidade}}</h1>
+                        <h1 class="text-xs font-bold">{{item.quantidade | number}}</h1>
                     </div>
                 </div>
             </div>
-            <div class="bg-white mt-2 p-2 rounded-md shadow-md">
+            <div class="bg-white mt-2 p-4 rounded-md shadow-md">
                 <app-doughnut-chart [data]="dataGraficoMarcas" [titulo]="'Carros'"></app-doughnut-chart>
             </div>
         </div>

@@ -6,6 +6,7 @@ import localePt from '@angular/common/locales/pt';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BarChartComponent } from './components/bar-chart/bar-chart.component';
 import { DoughnutChartComponent } from './components/doughnut-chart/doughnut-chart.component';
+import { LineChartComponent } from './components/line-chart/line-chart.component';
 
 
 
@@ -21,14 +22,16 @@ registerLocaleData(localePt);
   ],
   declarations: [
     BarChartComponent,
-    DoughnutChartComponent
+    DoughnutChartComponent,
+    LineChartComponent
   ],
   exports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     BarChartComponent,
-    DoughnutChartComponent
+    DoughnutChartComponent,
+    LineChartComponent
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'pt' }]
 })

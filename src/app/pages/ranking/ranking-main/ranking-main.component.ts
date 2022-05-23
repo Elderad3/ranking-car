@@ -6,7 +6,7 @@ import { take } from 'rxjs/operators';
 import { ErrorService } from '../../../shared/services/error.service';
 import { RankingService } from './../ranking.service';
 import { Ranking } from 'src/app/shared/models/ranking.model';
-import { anos, meses } from 'src/app/shared/services/util.service';
+import { UtilService } from 'src/app/shared/services/util.service';
 import { Ano } from 'src/app/shared/models/ano';
 import { Mes } from 'src/app/shared/models/mes';
 
@@ -36,7 +36,8 @@ export class RankingMainComponent implements OnInit {
     private rankingService: RankingService,
     private errorService: ErrorService,
     private titleService: Title,
-    private metaService: Meta) {
+    private metaService: Meta,
+    private utilService: UtilService) {
     this.rankingForm = this.fb.group({
       ano: [this.ano, Validators.required],
       mes: [this.mes],
@@ -48,8 +49,8 @@ export class RankingMainComponent implements OnInit {
     this.metaService.updateTag(
       { name: 'description', content: 'Ranking de novos emplacamentos de veículos no Brasil' }
     );
-    this.anos = anos
-    this.meses = meses
+    this.anos = this.utilService.anos
+    this.meses = this.utilService.meses
     this.rankingPorAnoEMes(this.ano, this.mes)
   }
 

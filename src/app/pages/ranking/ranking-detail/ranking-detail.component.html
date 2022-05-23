@@ -1,0 +1,41 @@
+<div class="container">
+    <div *ngIf="loading === true" class="flex justify-center items-center h-full h-screen overflow-auto">
+        <div class="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-azul"></div>
+    </div>
+    <div *ngIf="ranking.length > 0">
+        <div class="p-6 bg-white rounded shadow">
+            <div>
+                <span class="text-5xl font-semibold text-gray-400">{{ranking[0]?.marca}} </span>
+                <span class="text-8xl font-bold"> {{ranking[0]?.modelo}}</span>
+            </div>
+        </div>
+        <div class="mt-2">
+            <h4 class="mt-2 text-2xl font-bold text-gray-700">Ranking Geral</h4>
+        </div>
+        <div class="grid mt-2 gap-4 md:grid-cols-1 lg:grid-cols-5">
+            <div class="p-6 bg-white rounded shadow" *ngFor="let item of ranking">
+                <div>
+                    <p class="text-sm font-semibold text-gray-400">Ano: {{item.ano}}</p>
+                    <p class="text-sm font-semibold text-gray-400">Mês: {{item.mes}}</p>
+                    <p class="text-sm font-semibold text-gray-400">Posição: {{item.posicao | number}}</p>
+                </div>
+                <div class="flex justify-start items-center">
+                    <img src="assets/logos/{{item.marca}}.png" alt="Logomarca" class="h-7 w-7 mr-2" />
+                    <h1 class="font-bold">{{item.quantidade | number}}</h1>
+                </div>
+            </div>
+        </div>
+        <h4 class="mt-2 text-2xl font-bold text-gray-700">Ranking por Quantidade</h4>
+        <div class="bg-white p-4 mt-2 rounded-md shadow-md">
+            <app-line-chart [data]="dataGraficoRankingQuantidade" [titulo]="'Quantidade'"></app-line-chart>
+        </div>
+        <h4 class="mt-2 text-2xl font-bold text-gray-700">Ranking por Posição</h4>
+        <div class="bg-white p-4 mt-2 rounded-md shadow-md">
+            <app-bar-chart [data]="dataGraficoRankingPosicao" [titulo]="'Posição'"></app-bar-chart>
+        </div>
+        <div class="flex justify-end mt-4 ">
+            <button class="bg-azul hover:bg-blue-900 text-white font-bold p-2 rounded" type="button"
+                (click)="voltar()">Voltar</button>
+        </div>
+    </div>
+</div>

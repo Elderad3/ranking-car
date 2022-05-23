@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 Chart.register(...registerables);
 
@@ -29,7 +29,7 @@ export class BarChartComponent implements OnChanges {
       }]
       },
       options: {
-         // maintainAspectRatio: false,
+          maintainAspectRatio: false,
           responsive: true, 
           plugins: {
             legend: {display: false}

@@ -9,11 +9,13 @@ import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { RankingMainComponent } from './pages/ranking/ranking-main/ranking-main.component';
 import { SharedModule } from './shared/chared.module';
+import { RankingDetailComponent } from './pages/ranking/ranking-detail/ranking-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    RankingMainComponent
+    RankingMainComponent,
+    RankingDetailComponent
 
   ],
   imports: [

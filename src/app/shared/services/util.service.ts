@@ -1,14 +1,23 @@
 import { Ano } from "../models/ano"
 import { Mes } from "../models/mes"
+import { Injectable} from '@angular/core';
 
-export const anos:Ano[] = [
+
+@Injectable({
+  providedIn: 'root'
+})
+export class UtilService {
+
+constructor() {}
+
+anos:Ano[] = [
     {value: 2017},
     {value: 2018},
     {value: 2019},
     {value: 2020},
     {value: 2021},
 ]
-export const meses:Mes[] = [
+meses:Mes[] = [
     {value: 13, nome: "Todos os Meses"},
     {value: 1, nome: "Janeiro"},
     {value: 2, nome: "Fevereiro"},
@@ -25,7 +34,7 @@ export const meses:Mes[] = [
 
 ]
 
-export const nomeMes = (numeroMes: number):any => {
+nomeMes = (numeroMes: number):any => {
   switch(numeroMes){
    case 1 : return 'Janeiro'
    case 2 : return 'Fevereiro'
@@ -45,10 +54,10 @@ export const nomeMes = (numeroMes: number):any => {
   }
 }
 
-export const CHART_COLLORS = ['#001219', '#005f73', '#0a9396', '#94d2bd', '#e9d8a6', '#ee9b00', '#ca6702', '#bb3e03', '#ae2012', '#9b2226', 
+CHART_COLLORS = ['#001219', '#005f73', '#0a9396', '#94d2bd', '#e9d8a6', '#ee9b00', '#ca6702', '#bb3e03', '#ae2012', '#9b2226', 
 '#264653', '#2a9d8f', '#e9c46a', '#f4a261', '#e76f51', '#f9c80e', '#f86624', '#ea3546', '#662e9b', '#43bccd']
 
-export const agruparLista = (lista: any, propriedade: any) => {
+agruparLista = (lista: any, propriedade: any) => {
     return lista.reduce(function (total: any, obj: any) {
       let chave = obj[propriedade];
       if (!total[chave]) {
@@ -58,3 +67,5 @@ export const agruparLista = (lista: any, propriedade: any) => {
       return total;
     }, {});
   };
+
+}
