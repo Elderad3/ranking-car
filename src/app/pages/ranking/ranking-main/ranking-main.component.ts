@@ -9,6 +9,8 @@ import { Ranking } from 'src/app/shared/models/ranking.model';
 import { UtilService } from 'src/app/shared/services/util.service';
 import { Ano } from 'src/app/shared/models/ano';
 import { Mes } from 'src/app/shared/models/mes';
+import { SubSeguimento } from 'src/app/shared/models/subSeguimento';
+import { Seguimento } from 'src/app/shared/models/seguimento';
 
 @Component({
   selector: 'app-ranking-main',
@@ -16,15 +18,19 @@ import { Mes } from 'src/app/shared/models/mes';
 })
 export class RankingMainComponent implements OnInit {
 
-  ranking: Ranking[] = [];
-  dezPrimeiros: Ranking[] = [];
+  ranking: Ranking[] = []
+  dezPrimeiros: Ranking[] = []
   dataGraficoRanking: any = []
   dataGraficoMarcas: any = []
   rankingPorMarca: any = []
   anos: Ano[] = []
   meses: Mes[] = []
-  ano: number = new Date().getFullYear() - 1
-  mes: number = new Date().getMonth() + 1
+  seguimentos: Seguimento[] = []
+  subseguimentos: SubSeguimento[] = []
+  ano: number = 2021
+  mes: number = 13
+  seguimento: number = 1
+  subseguimento: number = 1
   loading: boolean = false
   isEmpty: boolean = false
   rankingForm: FormGroup
@@ -37,31 +43,35 @@ export class RankingMainComponent implements OnInit {
     private errorService: ErrorService,
     private titleService: Title,
     private metaService: Meta,
-    private utilService: UtilService) {
+    public utilService: UtilService) {
     this.rankingForm = this.fb.group({
       ano: [this.ano, Validators.required],
       mes: [this.mes],
+      seguimento: [this.seguimento],
+      subseguimento: [this.subseguimento]
     });
   }
 
   ngOnInit() {
     this.titleService.setTitle(this.titulo);
-    this.metaService.updateTag(
-      { name: 'description', content: 'Ranking de novos emplacamentos de veículos no Brasil' }
-    );
+    this.updateMetaTag()
     this.anos = this.utilService.anos
     this.meses = this.utilService.meses
-    this.rankingPorAnoEMes(this.ano, this.mes)
+    this.seguimentos = this.utilService.seguimentos
+    this.loadSubseguimentos()
+    this.rankingPorAnoMesSeguimentoSubseguimento(this.ano, this.mes, this.seguimento, this.subseguimento)
   }
 
   /**
-   * Busca ranking com base no ano e no mes
+   * Busca ranking por ano mes seguimento subseguimento
    * @param ano 
    * @param mes 
+   * @param seguimento 
+   * @param subseguimento 
    */
-  rankingPorAnoEMes(ano: number, mes: number) {
+  rankingPorAnoMesSeguimentoSubseguimento(ano: number, mes: number, seguimento: number, subseguimento: number): void {
     this.loading = !this.loading
-    this.rankingService.rankingPorAnoEMes(ano, mes).pipe(
+    this.rankingService.rankingPorAnoMesSeguimentoSubseguimento(ano, mes, seguimento, subseguimento).pipe(
       take(1)
     ).subscribe((ranking) => {
       this.ranking = ranking;
@@ -99,6 +109,21 @@ export class RankingMainComponent implements OnInit {
   }
 
   buscar() {
-    this.rankingPorAnoEMes(this.rankingForm.value.ano, this.rankingForm.value.mes)
+    this.rankingPorAnoMesSeguimentoSubseguimento(
+      this.rankingForm.value.ano, this.rankingForm.value.mes, this.rankingForm.value.seguimento, this.rankingForm.value.subseguimento)
+  }
+
+  updateMetaTag() {
+    this.metaService.updateTag(
+      { name: 'description', content: 'Ranking de novos emplacamentos de veículos no Brasil' }
+    );
+  }
+
+  loadSubseguimentos() {
+    console.log(this.rankingForm.value.seguimento)
+    this.subseguimentos = this.utilService.subSeguimentos
+    this.subseguimentos = this.subseguimentos.filter(item => item.seguimento?.value === this.rankingForm.value.seguimento)
+    console.log(this.subseguimentos)
+    this.rankingForm.patchValue({ subseguimento: this.subseguimentos[0].value })
   }
 }

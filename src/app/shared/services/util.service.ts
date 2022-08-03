@@ -1,6 +1,8 @@
 import { Ano } from "../models/ano"
 import { Mes } from "../models/mes"
 import { Injectable} from '@angular/core';
+import { Seguimento } from "../models/seguimento";
+import { SubSeguimento } from "../models/subSeguimento";
 
 
 @Injectable({
@@ -9,6 +11,26 @@ import { Injectable} from '@angular/core';
 export class UtilService {
 
 constructor() {}
+
+seguimentos: Seguimento[] =[
+  {value: 1, nome: "Carros"},
+  {value: 2, nome: "Motos"},
+
+]
+subSeguimentos: SubSeguimento[] =[
+  {value: 1, nome: "Automóveis*", seguimento: {value: 1, nome: "Autos"}},
+  {value: 2, nome: "Todos os subseguimentos", seguimento: {value: 2, nome: "Motos"}},
+  {value: 3, nome: "City", seguimento: {value: 2, nome: "Motos"}},
+  {value: 4, nome: "Custom", seguimento: {value: 2, nome: "Motos"}},
+  {value: 5, nome: "Trail/Fun", seguimento: {value: 2, nome: "Motos"}},
+  {value: 6, nome: "Maxtrail", seguimento: {value: 2, nome: "Motos"}},
+  {value: 7, nome: "Naked/Roadster", seguimento: {value: 2, nome: "Motos"}},
+  {value: 8, nome: "Scooter/Cub", seguimento: {value: 2, nome: "Motos"}},
+  {value: 9, nome: "Sport", seguimento: {value: 2, nome: "Motos"}},
+  {value: 10, nome: "Touring", seguimento: {value: 2, nome: "Motos"}},
+ 
+]
+
 
 anos:Ano[] = [
     {value: 2017},

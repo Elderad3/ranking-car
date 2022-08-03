@@ -3,11 +3,19 @@
         <form autocomplete="off" [formGroup]="rankingForm">
             <select class="px-2 py-2 mr-2 rounded-md shadow-sm border-2 focus:border-azul outline-none" name='ano'
                 formControlName="ano">
-                <option *ngFor=" let ano of anos" [value]="ano.value">{{ano.value}}</option>
+                <option *ngFor=" let ano of anos" [ngValue]="ano.value">{{ano.value}}</option>
             </select>
             <select class="px-2 py-2 mr-2 rounded-md shadow-sm border-2 focus:border-azul outline-none" name='mes'
                 formControlName="mes">
-                <option *ngFor="let mes of meses" [value]="mes.value">{{mes.nome}}</option>
+                <option *ngFor="let mes of meses" [ngValue]="mes.value">{{mes.nome}}</option>
+            </select>
+            <select class="px-2 py-2 mr-2 rounded-md shadow-sm border-2 focus:border-azul outline-none" name='seguimento'
+                formControlName="seguimento" (change)="loadSubseguimentos()">
+                <option *ngFor="let seguimento of seguimentos" [ngValue]="seguimento.value" >{{seguimento.nome}}</option>
+            </select>
+            <select class="px-2 py-2 mr-2 rounded-md shadow-sm border-2 focus:border-azul outline-none" name='subseguimento'
+                formControlName="subseguimento">
+                <option *ngFor="let subseguimento of subseguimentos" [ngValue]="subseguimento.value">{{subseguimento.nome}}</option>
             </select>
             <button class="bg-azul hover:bg-blue-900 text-white font-bold p-2 rounded" type="button"
                 (click)="buscar()">Buscar</button>
@@ -20,11 +28,12 @@
         <span>Nada encontrado, refaça a busca</span>
     </div>
     <div *ngIf="ranking.length > 0">
+        {{rankingForm.value | json}}
         <div class="mt-4">
-            <h4 class="mt-2 text-2xl font-bold text-gray-700">10 Primeiros {{ranking[0].mes}}/{{ranking[0].ano}}</h4>
+            <h4 class="mt-2 text-2xl font-bold text-gray-700">10 Primeiros - {{utilService.nomeMes(ranking[0].mes)}}/{{ranking[0].ano}}</h4>
         </div>
         <div class="grid mt-2 gap-2 md:grid-cols-2 lg:grid-cols-5">
-            <a *ngFor="let item of dezPrimeiros" [routerLink]="['/carro', item.id_carro]">
+            <a *ngFor="let item of dezPrimeiros" [routerLink]="['/carro', item.idt_auto]">
                 <div class="p-4 bg-white rounded-md shadow-md">
                     <div>
                         <span class="text-sm text-gray-500">{{item.posicao}} - {{item.modelo}}</span>
@@ -36,12 +45,12 @@
                 </div>
             </a>
         </div>
-        <h4 class="mt-2 text-2xl font-bold text-gray-700">Ranking Geral {{ranking[0].mes}}/{{ranking[0].ano}}</h4>
+        <h4 class="mt-2 text-2xl font-bold text-gray-700">Ranking Geral - {{utilService.nomeMes(ranking[0].mes)}}/{{ranking[0].ano}}</h4>
         <div class="bg-white p-4 mt-2 rounded-md shadow-md">
             <app-bar-chart [data]="dataGraficoRanking" [titulo]="'Quantidade'"></app-bar-chart>
         </div>
             <div class="grid gap-2 mt-4 md:grid-cols-3 lg:grid-cols-5">
-                <a *ngFor="let item of ranking" [routerLink]="['/carro', item.id_carro]">
+                <a *ngFor="let item of ranking" [routerLink]="['/carro', item.idt_auto]">
                     <div class="p-2 bg-white text-center rounded-md shadow-md">
                         <div class='flex justify-start items-center'>
                             <img src="assets/logos/{{item.marca}}.png" alt="Logomarca" class="h-6 w-6 mr-2" />
@@ -55,7 +64,7 @@
                 </a>
             </div>
         <div class="mt-4">
-            <h4 class="mt-2 text-2xl font-bold text-gray-700">Ranking Por Marca {{ranking[0].mes}}/{{ranking[0].ano}}
+            <h4 class="mt-2 text-2xl font-bold text-gray-700">Ranking Por Marca - {{utilService.nomeMes(ranking[0].mes)}}/{{ranking[0].ano}}
             </h4>
         </div>
         <div class="grid mt-2 gap-2 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2">

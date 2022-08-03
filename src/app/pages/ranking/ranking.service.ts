@@ -14,12 +14,16 @@ export class RankingService {
 
   constructor(private http: HttpClient, private utilService: UtilService) {}
 
+  rankingPorAnoMesSeguimentoSubseguimento(ano: number, mes: number, seguimento: number, subseguimento: number): Observable<Ranking[]>{
+    return this.http.get<Ranking[]>(`${APP_API}/ranking/${ano}/${mes}/${seguimento}/${subseguimento}/`)
+  }
+
   rankingPorAnoEMes(ano: number, mes: number): Observable<Ranking[]>{
     return this.http.get<Ranking[]>(`${APP_API}/ranking/${ano}/${mes}`)
   }
 
-  rankingPorCarro(id_carro: string){
-    return this.http.get<Ranking[]>(`${APP_API}/carro/${id_carro}`)
+  rankingPorAutomovel(idt_auto: string){
+    return this.http.get<Ranking[]>(`${APP_API}/carro/${idt_auto}`)
   }
 
   separarRankingPorMarca(ranking: Ranking[]) {
